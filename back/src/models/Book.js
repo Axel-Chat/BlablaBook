@@ -36,9 +36,11 @@ Book.init(
       allowNull: false,
     },
   },
+  
   {
     sequelize,
     tableName: "book",
+    freezeTableName: true,
   }
 );
 
