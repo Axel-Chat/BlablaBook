@@ -7,6 +7,12 @@ const sequelize = new Sequelize(process.env.PG_URL, {
     timestamps: true,
   },
   logging: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, 
+    },
+  },
 });
 
 export default sequelize;
