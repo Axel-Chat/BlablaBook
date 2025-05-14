@@ -40,7 +40,6 @@ Book.init(
   {
     sequelize,
     tableName: "book",
-    freezeTableName: true,
   }
 );
 
