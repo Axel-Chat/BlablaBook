@@ -1,32 +1,32 @@
 export const categoriesImage = [
   {
-    src: "/romance.jpg",
+    src: "/romance.webp",
   },
   {
-    src: "/thriller.jpg",
+    src: "/thriller.webp",
   },
   {
-    src: "/fantasy.jpg",
+    src: "/fantasy.webp",
   },
   {
-    src: "/science_fiction.jpg",
+    src: "/science_fiction.webp",
   },
   {
-    src: "/developpement_perso.jpg",
+    src: "/developpement_perso.webp",
   },
   {
-    src: "/biographie.jpg",
+    src: "/biographie.webp",
   },
   {
-    src: "/jeunesse.jpg",
+    src: "/jeunesse.webp",
   },
   {
-    src: "/manga.jpg",
+    src: "/manga.webp",
   },
   {
-    src: "/bande_dessinee.jpg",
+    src: "/bande_dessinee.webp",
   },
   {
-    src: "/classique.jpg",
+    src: "/classique.webp",
   },
 ];
