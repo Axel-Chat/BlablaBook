@@ -20,12 +20,6 @@ app.use(router);
 //Middleware error
 app.use(errorHandler);
 
-const init = async () => {
-    if (process.env.RUN_DB_SETUP === "true") {
-      console.log("📦 Initializing database...");
-      await import("./src/database/create_tables.js");
-      await import("./src/database/seed_tables.js");
-    }}
 
 // Start
 app.listen(process.env.PORT, () => {
