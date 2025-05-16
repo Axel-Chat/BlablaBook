@@ -2,9 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IBook } from "../@types";
 import { getOneBook } from "../api/apiBooks";
-import { addToMyReadLibrary, addToWishRead, deleteToMyReadLibrary, deleteToWishRead } from "../api/apiUser";
+import {
+  addToMyReadLibrary,
+  addToWishRead,
+  deleteToMyReadLibrary,
+  deleteToWishRead,
+} from "../api/apiUser";
 import { useErrorHandler } from "../utils/useErrorHandler";
-import { toastSuccess, toastInfo, toastWarning } from "../utils/toast/toastSuccess";
+import {
+  toastSuccess,
+  toastInfo,
+  toastWarning,
+} from "../utils/toast/toastSuccess";
 import { useAuthStore } from "../utils/store/useAuthStore";
 
 /**
@@ -136,7 +145,9 @@ const BookDetail = () => {
         setBook(newBook);
 
         // Check if the current user has marked the book as read
-        const hasRead = newBook.users_has_read.some((user) => user.id === userId);
+        const hasRead = newBook.users_has_read.some(
+          (user) => user.id === userId
+        );
 
         // Check if the current user wants to read the book
         const wantsToRead = newBook.users_need_to_read.some((user) => user.id === userId);
@@ -153,7 +164,11 @@ const BookDetail = () => {
 
   // check if the book exists
   if (!book) {
-    return <div className="text-center text-red-600 bg-red-100 p-4 rounded-md shadow-md">Livre non trouvé</div>;
+    return (
+      <div className="text-center text-red-600 bg-red-100 p-4 rounded-md shadow-md">
+        Livre non trouvé
+      </div>
+    );
   }
 
   return (
@@ -182,7 +197,8 @@ const BookDetail = () => {
         </p>
 
         <p className="mb-2">
-          <span className="font-bold font-title">Date de publication</span> : {book.published}
+          <span className="font-bold font-title">Date de publication</span> :{" "}
+          {book.published}
         </p>
 
         <p className="font-bold mt-4 mb-1 font-title text-lg">Description :</p>
@@ -200,7 +216,13 @@ const BookDetail = () => {
               isRead && !toRead ? `bg-green-300 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-400 ${!toRead}` : "bg-gray-300 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-400"
             }  rounded justify-center w-40 py-2 cursor-pointer`}
           >
-            <i className={`${isRead && !toRead ? "fa-solid fa-square-check" : "fa-solid fa-square-xmark"}`}></i>
+            <i
+              className={`${
+                isRead && !toRead
+                  ? "fa-solid fa-square-check"
+                  : "fa-solid fa-square-xmark"
+              }`}
+            ></i>
             <span>Lu</span>
           </button>
 

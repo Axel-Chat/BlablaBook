@@ -7,36 +7,77 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 export const router = Router();
 
 /**
- * POST route to register a new user.
- *
- * @summary Register a new user.
- * @route POST /register
- * @middleware validate(registerSchema) - Validates the request body against the registration schema.
- * @controller authController.register - Handles user registration.
- * @return {Object} - The registered user data and authentication token.
- * @return {Error} - Error if registration fails.
+ * @openapi
+ * /register:
+ *   post:
+ *     tags:
+ *       - Authentification
+ *     summary: Crée un nouvel utilisateur
+ *     description: Valide les données, empêche les emails jetables, puis enregistre un nouvel utilisateur.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Register'
+ *     responses:
+ *       201:
+ *         description: Utilisateur créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/RegisterResponse'
+ *       400:
+ *         description: Erreur de validation
+ *       409:
+ *         description: Email déjà utilisé
  */
 router.post("/register", validate(registerSchema), authController.register);
 
 /**
- * POST route to log in a user.
- *
- * @summary Log in a user.
- * @route POST /login
- * @controller authController.login - Handles user login.
- * @return {Object} - The authenticated user data and authentication token.
- * @return {Error} - Error if login fails.
+ * @openapi
+ * /login:
+ *   post:
+ *     tags:
+ *       - Authentification
+ *     summary: Connecte l'utilisateur
+ *     description: Vérifie si l'email est présent en base données et compare le mot de passe avec celui en base de données.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Login'
+ *     responses:
+ *       201:
+ *         description: Utilisateur créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginResponse'
+ *       400:
+ *         description: Requête invalide (email ou mot de passe)
  */
 router.post("/login", authController.login);
 
 /**
- * POST route to log out a user.
- *
- * @summary Log out a user.
- * @route POST /logout
- * @middleware authMiddleware - Ensures the user is authenticated.
- * @controller authController.logout - Handles user logout.
- * @return {Object} - Confirmation of successful logout.
- * @return {Error} - Error if logout fails.
+ * @openapi
+ * /logout:
+ *   post:
+ *     tags:
+ *       - Authentification
+ *     summary: Déconnecte l'utilisateur
+ *     description: Supprime le token côté client (aucune action côté serveur dans ce cas précis).
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Déconnexion réussie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LogoutResponse'
+ *       500:
+ *         description: Erreur serveur
  */
 router.post("/logout", authMiddleware, authController.logout);
