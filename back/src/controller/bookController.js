@@ -1,5 +1,6 @@
 import { Book, Category } from "../models/associations.js";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
+import Sequelize from "sequelize";
 import { ApiError } from "../middlewares/ApiError.js";
 
 const bookController = {
@@ -12,12 +13,13 @@ const bookController = {
    * @returns {Array} - Object
    */
   async getAllBooks(req, res, next) {
-    const { search, categoryId, categoryName, onlyCategories } = req.query; // get query
+    const { search, categoryId, categoryName, onlyCategories, topRated, random } = req.query; // get query
 
     const whereConditions = {};
 
     const includeOptions = [{ association: "categories" }, { association: "authors" }];
 
+    // get all categories if asking in URL
     if (onlyCategories === "true") {
       try {
         const categories = await Category.findAll();
@@ -26,6 +28,41 @@ const bookController = {
         return next(error);
       }
     }
+
+    // get top rated books if asking in URL
+    if (topRated === "true") {
+      try {
+        const topBooks = await Book.findAll({
+          // order by rating with best rating first
+          order: [["rating", "DESC"]],
+          // only 5 first books
+          limit: 5,
+          // do not include book with no rating
+          where: {
+            rating: {
+              [Op.not]: null, // Exclut les livres sans note
+            },
+          },
+        });
+        return res.status(200).json(topBooks);
+      } catch (error) {
+        return next(error);
+      }
+    }
+
+    // get random books if asking in URL
+    if (random === "true") {
+      try {
+        const randomBooks = await Book.findAll({
+          order: [Sequelize.literal("RANDOM()")],
+          limit: 5,
+        });
+        return res.status(200).json(randomBooks);
+      } catch (error) {
+        return next(error);
+      }
+    }
+
     // filter by author or name
     if (search) {
       whereConditions[Op.or] = [

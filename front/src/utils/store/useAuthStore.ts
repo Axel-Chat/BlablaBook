@@ -9,9 +9,11 @@ interface IUserAuthStore {
 interface IAuthState {
   user: IUserAuthStore | null
   token: string | null
+  theme: "light" | "dark";
   login: (name: string, id: number, token: string) => void
   logout: () => void,
   setUser: (userData: IUserAuthStore) => void; // Allows you to update the user and make it available to all components
+  setTheme: (theme: "light" | "dark") => void;
 }
 
 /**
@@ -25,6 +27,7 @@ export const useAuthStore = create<IAuthState>()(
     (set) => ({
       user: null,  // Initialize user as null (not authenticated)
       token: null, // Initialize token as null (not authenticated)
+      theme: "light",
 
       // Login function to set user data and token
       login: (name, id, token) => set(() => ({user: {name, id}, token})),
@@ -33,10 +36,11 @@ export const useAuthStore = create<IAuthState>()(
       logout: () => set({ user: null, token: null }),
 
       setUser: (userData) => set({ user: userData }),
+      setTheme: (theme) => set({ theme }),
     }),
     {
       name: "auth-storage",  // Key for local storage
-      partialize: (state) => ({ user: state.user, token: state.token }),  // Specify which parts of state to persist
+      partialize: (state) => ({ user: state.user, token: state.token, theme: state.theme, }),  // Specify which parts of state to persist
     }
   )
 );

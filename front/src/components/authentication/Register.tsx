@@ -21,10 +21,10 @@ interface PasswordRules {
 /**
  * Register component for user registration.
  *
- * @param {Object} param0 - Component props.
- * @param {IRegister} param0.data - Registration form data.
- * @param {Function} param0.onChange - Function to handle form data changes.
- * @param {Function} param0.onSubmit - Function to handle form submission.
+ * @param {Object} param - Component props.
+ * @param {IRegister} param.data - Registration form data.
+ * @param {Function} param.onChange - Function to handle form data changes.
+ * @param {Function} param.onSubmit - Function to handle form submission.
  * @returns {JSX.Element} - The rendered registration form.
  */
 const Register = ({ data, onChange, onSubmit }: IRegisterProps) => {
@@ -71,9 +71,11 @@ const Register = ({ data, onChange, onSubmit }: IRegisterProps) => {
    */
   const renderValidationMark = (isValid: boolean) => {
     return isValid ? (
-      <span className="text-green-500 ml-1">✓</span>
+      <span className="text-green-500 ml-1">
+        <i className="fa-solid fa-check"></i>
+      </span>
     ) : (
-      <span className="text-gray-400 ml-1">•</span>
+      <span className="text-gray-400 ml-1"></span>
     );
   };
 
@@ -176,9 +178,15 @@ const Register = ({ data, onChange, onSubmit }: IRegisterProps) => {
             }`}
           >
             {data.password === data.confirmPassword ? (
-              <span>✓ Les mots de passe correspondent</span>
+              <span>
+                <i className="fa-solid fa-check"></i> Les mots de passe
+                correspondent
+              </span>
             ) : (
-              <span>✗ Les mots de passe ne correspondent pas</span>
+              <span>
+                <i className="fa-solid fa-xmark"></i> Les mots de passe ne
+                correspondent pas
+              </span>
             )}
           </div>
         )}
@@ -187,7 +195,7 @@ const Register = ({ data, onChange, onSubmit }: IRegisterProps) => {
       <div className="flex justify-center">
         <button
           type="button"
-          className="bg-gray-800 hover:bg-gray-600 text-white py-2 px-6 rounded cursor-pointer"
+          className="bg-gray-800 hover:bg-gray-600 text-white py-2 px-6 rounded cursor-pointer dark:bg-gray-600 dark:hover:bg-gray-400"
           onClick={onSubmit}
         >
           Inscription

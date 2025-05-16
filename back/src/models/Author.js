@@ -3,7 +3,6 @@ import sequelize from "./client-sequelize.js";
 
 export class Author extends Model {}
 
-//j'ai repris le dictionnaire des données
 Author.init(
   {
     name: {

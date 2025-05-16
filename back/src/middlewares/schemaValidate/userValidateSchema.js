@@ -1,8 +1,6 @@
 import Joi from "joi";
 import { registerSchema } from "./authValidateSchema.js";
 
-
-
 const updateUserSchema = registerSchema
  // make name email password confirmPassword optional
   .fork(["name", "email", "password", "confirmPassword"], (schema) =>

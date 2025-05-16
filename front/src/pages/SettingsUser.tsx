@@ -163,7 +163,7 @@ const SettingsUser = () => {
       <div className="px-4 sm:px-10 pt-5 font-title">
         {/* back button */}
         <Link to="/profile">
-          <button className="text-blue-900 hover:underline">← Retour</button>
+          <button className="text-blue-900 hover:underline dark:text-yellow-500">← Retour</button>
         </Link>
       </div>
       <div className="flex flex-col w-full  items-center font-title">
@@ -306,7 +306,7 @@ const SettingsUser = () => {
 
             {/* save button */}
             <button
-              className="mt-4 bg-white border py-2 px-4 rounded hover:bg-gray-200 font-title tracking-normal"
+              className="mt-4 bg-white text-black border py-2 px-4 rounded hover:bg-gray-200 font-title tracking-normal"
               type="submit"
             >
               Sauvegarder

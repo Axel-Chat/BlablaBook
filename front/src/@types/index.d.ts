@@ -45,22 +45,3 @@ export interface IUserUpdate {
   confirmPassword?: string;
   password?: string;
 }
-
-export interface ICategoryBooks extends ICategory {
-  books: IBookFromCategory[];
-}
-
-export interface IBookFromCategory {
-  id: number;
-  title: string;
-  isbn: string;
-  description: string | null;
-  published: number | null;
-  cover_url: string | null;
-  page_count: number;
-}
-
-interface IBookWithCategories {
-  id: number;
-  categories: ICategory[];
-}

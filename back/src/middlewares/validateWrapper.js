@@ -4,9 +4,9 @@
  * @param {Object} schema - The validation schema.
  * @returns {Function} - The middleware function.
  */
-export function validate(schema) {
+export const validate = (schema) => {
   // Return the middleware function
-  return (req, res, next) => {
+  return (req, _res, next) => {
     // Validate the request body against the schema
     const { error } = schema.validate(req.body, { abortEarly: false });
 

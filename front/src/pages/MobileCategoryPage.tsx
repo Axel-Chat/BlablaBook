@@ -6,6 +6,8 @@ import { categoriesImage } from "../data/categoriesImage";
 
 export default function MobileCategoryPage() {
   const [categories, setCategories] = useState<ICategory[]>([]);
+
+  //Fetch all categories
   useEffect(() => {
     async function loadCategories() {
       try {

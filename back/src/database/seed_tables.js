@@ -264,6 +264,7 @@ async function seedDatabase() {
         published: "2017",
         cover_url: "1508475182i/36444262",
         page_count: 784,
+        rating: 4.6,
       },
       {
         isbn: "9782267046892",
@@ -562,6 +563,7 @@ async function seedDatabase() {
         published: "2022",
         cover_url: "1657191679i/61405470",
         page_count: 176,
+        rating: 4,
       },
       {
         isbn: "9791032710265",
@@ -571,6 +573,7 @@ async function seedDatabase() {
         published: "2021",
         cover_url: "1636297509i/59539064",
         page_count: 173,
+        rating: 5,
       },
       {
         isbn: "9782809487206",
@@ -643,6 +646,7 @@ async function seedDatabase() {
         published: "2022",
         cover_url: "1668028642i/63265606",
         page_count: 272,
+        rating: 4.2,
       },
       {
         isbn: "9782203148888",
@@ -661,6 +665,7 @@ async function seedDatabase() {
         published: "1993",
         cover_url: "1558670829i/146140",
         page_count: 68,
+        rating: 4.9,
       },
       {
         isbn: "9782012101401",
@@ -922,9 +927,7 @@ async function seedDatabase() {
       { book_id: 68, category_id: 10 },
     ];
 
-    await sequelize.models.book_has_category.bulkCreate(
-      bookCategoryAssociation
-    );
+    await sequelize.models.book_has_category.bulkCreate(bookCategoryAssociation);
   } catch (error) {
     console.error("Erreur lors du seeding :", error);
   } finally {

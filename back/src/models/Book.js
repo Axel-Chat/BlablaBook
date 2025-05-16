@@ -35,6 +35,10 @@ Book.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    rating: {
+      type: DataTypes.REAL,
+      allowNull: true,
+    },
   },
   
   {

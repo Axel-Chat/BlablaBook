@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
  * @param {string} password - The plain text password to hash.
  * @returns {Promise<string>} - The hashed password.
  */
-export async function hash(password) {
+export const hash = async (password) => {
   return await argon2.hash(password);
 }
 
@@ -19,7 +19,7 @@ export async function hash(password) {
  * @param {string} hashedPassword - The hashed password to compare against.
  * @returns {Promise<boolean>} - True if the passwords match, false otherwise.
  */
-export async function compare(plainTextPassword, hashedPassword) {
+export const compare =  async (plainTextPassword, hashedPassword) => {
   return await argon2.verify(hashedPassword, plainTextPassword);
 }
 
@@ -29,7 +29,7 @@ export async function compare(plainTextPassword, hashedPassword) {
  * @param {Object} payload - The payload to include in the JWT token.
  * @returns {string} - The generated JWT token.
  */
-export function generateJwtToken(payload) {
+export const generateJwtToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 }
 
@@ -39,11 +39,11 @@ export function generateJwtToken(payload) {
  * @param {string} token - The JWT token to verify.
  * @returns {Object|null} - The decoded payload if the token is valid, null otherwise.
  */
-export function verifyJwtToken(token) {
+export const verifyJwtToken = (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
-    console.error("❌ Erreur JWT :", error.message);
+    console.error("Erreur JWT :", error.message);
     return null;
   }
 }

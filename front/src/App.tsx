@@ -27,14 +27,17 @@ function App() {
   const location = useLocation();
   return (
     // Wrapper div pour toute l'application
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white text-black dark:text-placeholder transition-colors">
       <BackToTopPage />
       <Navbar />
       <Header />
 
       {/* Le main prend tout l'espace disponible avec flex-grow */}
       <main className="md:ml-64 flex-grow bg-body">
-        <ErrorBoundary FallbackComponent={ErrorServer} resetKeys={[location.pathname]}>
+        <ErrorBoundary
+          FallbackComponent={ErrorServer}
+          resetKeys={[location.pathname]}
+        >
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/books/:bookId" element={<DetailPage />} />

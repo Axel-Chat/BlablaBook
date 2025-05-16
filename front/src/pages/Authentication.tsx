@@ -14,12 +14,17 @@ const Authentication = () => {
     confirmPassword: "",
   });
 
+  /**
+   * Handles the user registration process.
+   *
+   * @returns {Promise<void>} - A promise that resolves when the registration process is complete.
+   */
   const handleRegister = async () => {
+    // Check if password and confirmPassword match
     if (registerData.password !== registerData.confirmPassword) {
       toastError("Les mots de passe ne correspondent pas");
       return;
     }
-
     try {
       await registerUser(registerData);
       toastSuccess("Inscription réussie !");
@@ -32,7 +37,6 @@ const Authentication = () => {
       });
     } catch (error: unknown) {
       const apiError = error as IError;
-
       if (apiError.errors && apiError.errors.length > 0) {
         toastError(apiError.errors);
       } else {
@@ -42,9 +46,13 @@ const Authentication = () => {
   };
 
   return (
-    <section className="pb-14 md:pb-6 ">
+    <section className="pb-14 md:pb-6">
       <Login />
-      <Register data={registerData} onChange={setRegisterData} onSubmit={handleRegister} />
+      <Register
+        data={registerData}
+        onChange={setRegisterData}
+        onSubmit={handleRegister}
+      />
     </section>
   );
 };

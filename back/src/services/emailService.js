@@ -11,7 +11,7 @@ const resolveMx = promisify(dns.resolveMx);
  * @param {string} email - The email address to check.
  * @returns {boolean} - True if the email is from a disposable domain, false otherwise.
  */
-function isDisposableEmail(email) {
+export const isDisposableEmail = (email) => {
   // Extract the domain from the email address and convert it to lowercase
   const domain = email.split("@")[1].toLowerCase();
   // Check if the domain is in the list of disposable email domains
@@ -24,7 +24,7 @@ function isDisposableEmail(email) {
  * @param {string} email - The email address to check.
  * @returns {Promise<boolean>} - True if the domain has valid MX records, false otherwise.
  */
-async function isDomainValid(email) {
+export const isDomainValid = async (email) => {
   try {
     // Extract the domain from the email address and convert it to lowercase
     const domain = email.split("@")[1].toLowerCase();
@@ -37,5 +37,3 @@ async function isDomainValid(email) {
     return false;
   }
 }
-
-export { isDisposableEmail, isDomainValid };

@@ -35,14 +35,21 @@ const UserReadPage = () => {
     fetchUser();
   }, [user]);
 
-  if (loading) return <p className="text-center mt-10">Chargement des livres lus...</p>;
+  if (loading)
+    return <p className="text-center mt-10">Chargement des livres lus...</p>;
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
   if (!localUser) return null;
 
   return (
     <section className="content ml-[5vw] mr-[5vw] pt-10 pb-20">
+      <Link
+        to="/profile"
+        className="block text-gray-800 hover:text-yellow-700 hover:underline mb-2 font-body tracking-widest dark:text-yellow-500"
+      >
+        ← Retour au profil
+      </Link>
       <h1 className="text-3xl font-bold font-title mb-6">
-      Mes livres lus : {localUser.books_already_read.length}
+        Mes livres lus : {localUser.books_already_read.length}
       </h1>
 
       {localUser.books_already_read.length === 0 ? (
@@ -63,15 +70,7 @@ const UserReadPage = () => {
           ))}
         </div>
       )}
-        <div className="mt-10">
-        <Link
-          to="/profile"
-         className="block text-gray-800 hover:text-yellow-700 hover:underline mb-2 font-body tracking-widest"
-        >
-          ← Retour au profil
-        </Link>
-      </div>
-
+      <div className="mt-10"></div>
     </section>
   );
 };

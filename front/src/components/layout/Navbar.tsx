@@ -23,7 +23,7 @@ const Navbar = () => {
         {/* Sidebar fixe à gauche */}
         <aside className="hidden md:block bg-sidebar p-4 w-64 fixed h-screen z-20 overflow-y-auto">
           <div className="logo flex items-center gap-2 mb-10">
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center" aria-label="lien vers l'accueil">
               <img src="/img/logo/blablabook.webp" alt="BlaBlaBook" className="w-10" />
               <h1 className="text-xl font-black font-title">BlaBlaBook</h1>
             </Link>
@@ -36,7 +36,7 @@ const Navbar = () => {
                   <li key={category.id}>
                     <Link
                       to={`/categories/${category.id}`}
-                      className="block text-gray-800 hover:text-yellow-700 hover:underline mb-2 font-body tracking-widest"
+                      className="block text-gray-800 hover:text-yellow-700 hover:underline mb-2 font-body tracking-widest dark:text-placeholder dark:hover:text-yellow-500"
                     >
                       {category.name}
                     </Link>

@@ -2,33 +2,10 @@ import type { IBooks, IBook, ICategory } from "../@types";
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
-interface IBookQueryParams {
-  [key: string]: string | number | boolean | undefined;
-}
-
-export async function getAllBooks(params: IBookQueryParams = {}): Promise<IBooks> {
-  const urlParams = new URLSearchParams();
-
-  // transform params in url as an object like [key, value]
-  const paramsObject = Object.entries(params);
-
-  paramsObject.forEach(([key, value]) => {
-    // check if the value is undefined or null
-    if (value !== undefined && value !== null) {
-      // convert value into string and add it into URL params
-      urlParams.append(key, value.toString());
-    }
-  });
-
-  // convert urlParams object into a string
-  const urlString = urlParams.toString();
-
-  // add params in the API request if exists
-  const newUrl = `${apiBaseUrl}/books/${urlString ? `?${urlString}` : ""}`;
-
+export async function getAllBooks(): Promise<IBooks> {
   try {
     // request to the new url
-    const response = await fetch(newUrl);
+    const response = await fetch(`${apiBaseUrl}/books`);
     if (!response.ok) {
       throw new Error(`Erreur lors de la récupération des livres: ${response.statusText}`);
     }
@@ -65,7 +42,7 @@ export async function getOneBook(id: number): Promise<IBook> {
   }
 }
 
-export async function searchBooks(query: string): Promise<IBook[]> {
+export async function searchBooks(query: string): Promise<IBooks> {
   try {
     const response = await fetch(`${apiBaseUrl}/books?search=${encodeURIComponent(query)}`);
 
@@ -112,7 +89,7 @@ export async function getAllCategories(): Promise<ICategory[]> {
  * @returns {Promise<ICategoryBooks | null>} - A promise that resolves to a category object with books or `null` if the request fails.
  * @throws {Error} - Throws an error if the request fails or if there is an issue with the network.
  */
-export async function getBooksByCategories(id: number): Promise<IBook[]> {
+export async function getBooksByCategory(id: number): Promise<IBook[]> {
   const url = `${apiBaseUrl}/books?categoryId=${id}`;
   try {
     const response = await fetch(url);
@@ -124,5 +101,53 @@ export async function getBooksByCategories(id: number): Promise<IBook[]> {
   } catch (error) {
     console.error("Erreur lors du chargement", error);
     return [];
+  }
+}
+
+/**
+ * Function to fetch top rated books.
+ *
+ * @returns {Promise<IBook[]>} - A promise that resolves to an array of book objects.
+ * @throws {Error} - Throws an error if the request fails or if there is an issue with the network.
+ */
+export async function getTopRatedBooks(): Promise<IBook[]> {
+  // Request parameters optimized to fetch only top rated books
+  const url = `${apiBaseUrl}/books?topRated=true`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Erreur lors de la récupération des livres: ${response.statusText}`);
+    }
+    const topBooks = (await response.json()) as IBook[];
+    return topBooks;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des livres:", error);
+    throw error;
+  }
+}
+
+/**
+ * Function to fetch 5 random books.
+ *
+ * @returns {Promise<IBook[]>} - A promise that resolves to an array of book objects.
+ * @throws {Error} - Throws an error if the request fails or if there is an issue with the network.
+ */
+export async function getRandomBooks(): Promise<IBook[]> {
+  // Request parameters optimized to fetch only 5 random books
+  const url = `${apiBaseUrl}/books?random=true`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Erreur lors de la récupération des livres: ${response.statusText}`);
+    }
+    const randomBooks = (await response.json()) as IBook[];
+    return randomBooks;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des livres:", error);
+    throw error;
   }
 }

@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { IBook } from "../@types";
 import { useErrorHandler } from "../utils/useErrorHandler";
-import { getBooksByCategories } from "../api/apiBooks";
+import { getBooksByCategory } from "../api/apiBooks";
 
 export default function CategoryPage() {
-  const [booksCategories, setBooksCategories] = useState<IBook[]>([]);
+  const [booksCategories, setBooksCategory] = useState<IBook[]>([]);
   const { handleError } = useErrorHandler();
   const { categoryId } = useParams();
 
+  // Fetch books for the selected category whenever categoryId changes
   useEffect(() => {
     async function loadBooks() {
       try {
-        const booksByCategories = await getBooksByCategories(Number(categoryId));
-        setBooksCategories(booksByCategories);
+        const booksByCategory = await getBooksByCategory(Number(categoryId));
+        setBooksCategory(booksByCategory);
       } catch (error) {
         handleError(error);
       }

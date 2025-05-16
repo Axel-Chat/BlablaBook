@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap");
 
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-body: #faf4e8;
@@ -14,6 +15,14 @@
   --breakpoint-ml: 59.375rem; /* 950 px */
 }
 
+.dark {
+  --color-body: #252d49;
+  --color-sidebar: #2e3440;
+  --color-header: #1c1c26;
+  --color-placeholder: #faf4e8;
+}
+
+/* put every toast under the header */
 .iziToast-wrapper.iziToast-wrapper-topRight {
   top: 60px !important;
   right: 15px !important;

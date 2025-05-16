@@ -47,7 +47,7 @@ const SearchBar = () => {
   return (
     <div className="search-bar text-placeholder relative max-w-70 md:min-w-75 md:block font-body tracking-wider">
       <form onSubmit={handleSearch} className="flex gap-2 ">
-        <button type="submit">
+        <button type="submit" aria-label="soumettre la recherche">
           <i className="fas fa-search absolute left-3 -translate-y-1/2 pl-2"></i>
         </button>
         <input
