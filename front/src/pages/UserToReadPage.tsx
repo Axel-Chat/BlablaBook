@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getOneUser } from "../api/apiUser";
-import type { IUser } from "../@types/index.d.ts";
+import { IUser } from "../@types";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../utils/store/useAuthStore";
+import UserBookGrid from "../components/UserBookGrid";
 
 const UserToReadPage = () => {
   const { user } = useAuthStore();
@@ -20,10 +21,6 @@ const UserToReadPage = () => {
 
       try {
         const userData = await getOneUser();
-        if (!userData) {
-          setError("Impossible de charger les livres à lire.");
-          return;
-        }
         setLocalUser(userData);
       } catch (err) {
         setError("Erreur lors du chargement des livres à lire.");
@@ -41,29 +38,10 @@ const UserToReadPage = () => {
 
   return (
     <section className="content ml-[5vw] mr-[5vw] pt-10 pb-20">
-      <h1 className="text-3xl font-bold font-title mb-6 ">
-      Mes livres à lire : {localUser.books_wish_read.length}
-      </h1>
-
-      {localUser.books_wish_read.length === 0 ? (
-        <p className="text-lg font-body">Tu n’as encore rien ajouté à ta liste de lecture.</p>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-          {localUser.books_wish_read.map((book) => (
-            <Link key={book.id} to={`/books/${book.id}`} className="block">
-              <div className="book cursor-pointer hover:shadow-lg hover:rounded-md transition-shadow text-center">
-                <img
-                  src={`https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/${book.cover_url}.jpg`}
-                  alt={book.title}
-                  className="h-80 w-full object-contain mb-2 mx-auto"
-                />
-                <p className="text-lg font-body tracking-wider">{book.title}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
-
+      <UserBookGrid
+        title={`Mes livres à lire : ${localUser.books_wish_read.length}`}
+        books={localUser.books_wish_read}
+      />
       <div className="mt-10">
         <Link
           to="/profile"

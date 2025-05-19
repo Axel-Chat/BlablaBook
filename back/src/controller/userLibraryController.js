@@ -76,16 +76,12 @@ const userLibraryController = {
     // Verification: Book present in the list
     const isInList = await user.hasBooks_already_read(book);
     if (!isInList) {
-      return next(
-        new ApiError("Ce livre n'est pas dans votre bibliothèque lue", 400)
-      );
+      return next(new ApiError("Ce livre n'est pas dans votre bibliothèque lue", 400));
     }
 
     await user.removeBooks_already_read(book);
 
-    res
-      .status(200)
-      .json({ message: "Livre retiré de la liste des livres lus" });
+    res.status(200).json({ message: "Livre retiré de la liste des livres lus" });
   },
 
   /**
@@ -114,9 +110,7 @@ const userLibraryController = {
 
     await user.addBooks_wish_read(book);
 
-    res
-      .status(200)
-      .json({ message: "Livre ajouté à la liste des livres à lire" });
+    res.status(200).json({ message: "Livre ajouté à la liste des livres à lire" });
   },
 
   /**
@@ -142,15 +136,11 @@ const userLibraryController = {
     // Verification: Book present in the list
     const isInList = await user.removeBooks_wish_read(book);
     if (!isInList) {
-      return next(
-        new ApiError("Ce livre n'est pas dans votre bibliothèque à lire", 400)
-      );
+      return next(new ApiError("Ce livre n'est pas dans votre bibliothèque à lire", 400));
     }
     await user.removeBooks_wish_read(book);
 
-    res
-      .status(200)
-      .json({ message: "Livre retiré de la liste des livres à lire" });
+    res.status(200).json({ message: "Livre retiré de la liste des livres à lire" });
   },
 };
 

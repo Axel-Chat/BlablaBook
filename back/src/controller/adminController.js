@@ -12,15 +12,12 @@ const adminController = {
 
   async addNewBook(req, res, next) {
     // Get the params
-    const { isbn, title, description, published, cover_url, page_count } =
-      req.body;
+    const { isbn, title, description, published, cover_url, page_count } = req.body;
 
     //   check if the book is not already in the DB
     const isRegistered = await Book.findOne({ where: { isbn } });
     if (isRegistered) {
-      return next(
-        new ApiError("Impossible d'ajouter ce livre car il existe déjà", 409)
-      );
+      return next(new ApiError("Impossible d'ajouter ce livre car il existe déjà", 409));
     }
 
     const newBook = await Book.create({
@@ -54,14 +51,7 @@ const adminController = {
     }
 
     // Get the params
-    const fields = [
-      "isbn",
-      "title",
-      "description",
-      "published",
-      "cover_url",
-      "page_count",
-    ];
+    const fields = ["isbn", "title", "description", "published", "cover_url", "page_count"];
 
     // if a value is declare, change it otherwise don't
     fields.forEach((field) => {
@@ -114,12 +104,7 @@ const adminController = {
 
     const isRegistered = await Category.findOne({ where: { name } });
     if (isRegistered) {
-      return next(
-        new ApiError(
-          "Impossible d'ajouter cette catégorie car elle existe déjà",
-          409
-        )
-      );
+      return next(new ApiError("Impossible d'ajouter cette catégorie car elle existe déjà", 409));
     }
 
     const newCategory = await Category.create({ name });
@@ -188,14 +173,10 @@ const adminController = {
     const allAuthors = await Author.findAll();
 
     // Check if an author with the same name (case-insensitive) already exists
-    const authorExists = allAuthors.some(
-      (author) => author.name.toLowerCase() === name.toLowerCase()
-    );
+    const authorExists = allAuthors.some((author) => author.name.toLowerCase() === name.toLowerCase());
 
     if (authorExists) {
-      return next(
-        new ApiError("Impossible d'ajouter cet auteur car il existe déjà", 409)
-      );
+      return next(new ApiError("Impossible d'ajouter cet auteur car il existe déjà", 409));
     }
 
     const newAuthor = await Author.create({ name });

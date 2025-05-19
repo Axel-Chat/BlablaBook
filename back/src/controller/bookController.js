@@ -1,5 +1,5 @@
 import { Book, Category } from "../models/associations.js";
-import { Op, where } from "sequelize";
+import { fn, col, Op, where } from "sequelize";
 import Sequelize from "sequelize";
 import { ApiError } from "../middlewares/ApiError.js";
 
@@ -88,7 +88,25 @@ const bookController = {
 
     const result = await Book.findAll({
       where: whereConditions,
-      include: includeOptions,
+      include: [
+        ...includeOptions,
+        {
+          association: "categories",
+          through: { attributes: [] }, // ⬅️ n'inclut pas les champs du pivot
+        },
+        {
+          association: "authors",
+          through: { attributes: [] },
+        },
+        {
+          association: "reviews",
+          attributes: [],
+        },
+      ],
+      attributes: {
+        include: [[fn("AVG", col("reviews.rating")), "averageRating"]],
+      },
+      group: ["Book.id", "categories.id", "authors.id"],
     });
 
     if (result.length === 0) {

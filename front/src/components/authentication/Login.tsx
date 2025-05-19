@@ -4,7 +4,7 @@ import { useAuthStore } from "../../utils/store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { loginUser } from "../../api/apiAuth";
-import { toastSuccess } from "../../utils/toast/toastSuccess";
+import { toastSuccess } from "../../utils/toast/toaster";
 import { toastError } from "../../utils/toast/toastError";
 import PasswordField from "./PasswordField";
 

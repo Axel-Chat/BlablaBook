@@ -4,7 +4,7 @@ import Register from "../components/authentication/Register";
 import { IRegister, IError } from "../@types/auth";
 import { registerUser } from "../api/apiAuth";
 import { toastError } from "../utils/toast/toastError";
-import { toastSuccess } from "../utils/toast/toastSuccess";
+import { toastSuccess } from "../utils/toast/toaster";
 
 const Authentication = () => {
   const [registerData, setRegisterData] = useState<IRegister>({

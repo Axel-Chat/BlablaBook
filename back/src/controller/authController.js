@@ -1,6 +1,6 @@
 import { hash, compare, generateJwtToken } from "../services/authService.js";
 import { isDisposableEmail, isDomainValid } from "../services/emailService.js";
-import { User } from "../models/associations.js"
+import { User } from "../models/associations.js";
 import { ApiError } from "../middlewares/ApiError.js";
 
 const authController = {
@@ -13,7 +13,9 @@ const authController = {
    * @returns {Object} - The response object with the registration status and user data.
    */
   async register(req, res, next) {
-    const { name, email, password } = req.body;
+    const name = req.body.name.trim();
+    const email = req.body.email.trim();
+    const password = req.body.password;
 
     // 1. Check if the email is already in use
     const existingUser = await User.findOne({ where: { email } });
@@ -23,12 +25,7 @@ const authController = {
 
     // 2. Check if the email is a disposable email
     if (isDisposableEmail(email)) {
-      return next(
-        new ApiError(
-          "Les adresses e-mail temporaires ne sont pas acceptées",
-          400
-        )
-      );
+      return next(new ApiError("Les adresses e-mail temporaires ne sont pas acceptées", 400));
     }
 
     // 3. Validate the email domain

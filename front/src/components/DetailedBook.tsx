@@ -9,11 +9,7 @@ import {
   deleteToWishRead,
 } from "../api/apiUser";
 import { useErrorHandler } from "../utils/useErrorHandler";
-import {
-  toastSuccess,
-  toastInfo,
-  toastWarning,
-} from "../utils/toast/toastSuccess";
+import { toastSuccess, toastInfo, toastWarning } from "../utils/toast/toaster";
 import { useAuthStore } from "../utils/store/useAuthStore";
 
 /**
@@ -150,7 +146,9 @@ const BookDetail = () => {
         );
 
         // Check if the current user wants to read the book
-        const wantsToRead = newBook.users_need_to_read.some((user) => user.id === userId);
+        const wantsToRead = newBook.users_need_to_read.some(
+          (user) => user.id === userId
+        );
 
         setIsRead(hasRead);
         setToRead(wantsToRead);
@@ -185,14 +183,16 @@ const BookDetail = () => {
 
       <div className="text-sm md:text-base max-w-xl">
         <p>
-          <span className="font-bold font-title text:2xl">Par :</span> {/* Join author names if there are multiple */}
+          <span className="font-bold font-title text:2xl">Par :</span>{" "}
+          {/* Join author names if there are multiple */}
           {book.authors.map((auth) => auth.name).join(", ")}
         </p>
 
         <h1 className="text-xl font-title font-bold mb-2">{book.title}</h1>
 
         <p>
-          <span className="font-bold font-title">Catégorie :</span> {/* Join category names if there are multiple */}
+          <span className="font-bold font-title">Catégorie :</span>{" "}
+          {/* Join category names if there are multiple */}
           {book.categories.map((cat) => cat.name).join(", ")}
         </p>
 
@@ -213,7 +213,9 @@ const BookDetail = () => {
             onClick={!isRead ? handleAddRead : handleRemoveRead}
             aria-label="Ajouter à la liste 'lu'"
             className={`flex items-center gap-2 ${
-              isRead && !toRead ? `bg-green-300 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-400 ${!toRead}` : "bg-gray-300 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-400"
+              isRead && !toRead
+                ? `bg-green-300 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-400 ${!toRead}`
+                : "bg-gray-300 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-400"
             }  rounded justify-center w-40 py-2 cursor-pointer`}
           >
             <i
@@ -233,7 +235,9 @@ const BookDetail = () => {
             onClick={!toRead ? handleWishRead : handleRemoveWishRead}
             aria-label="Ajouter à la liste 'à lire'"
             className={`flex items-center gap-2 ${
-              toRead && !isRead ? "bg-green-300 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-400" : "bg-gray-300 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-400"
+              toRead && !isRead
+                ? "bg-green-300 hover:bg-green-200 dark:bg-green-600 dark:hover:bg-green-400"
+                : "bg-gray-300 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-400"
             } rounded justify-center w-40 py-2 cursor-pointer `}
           >
             <i className="fa-solid fa-book-open-reader"></i>

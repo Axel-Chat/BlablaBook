@@ -11,7 +11,7 @@ export const router = Router();
  * /user:
  *   get:
  *     tags:
- *       - User
+ *       - Compte utilisateur
  *     summary: Récupère les infos de l'utilisateur connecté
  *     security:
  *       - bearerAuth: []
@@ -42,7 +42,7 @@ router.get("/user", authMiddleware, userController.getOneUser);
  * /user:
  *   patch:
  *     tags:
- *       - User
+ *       - Compte utilisateur
  *     summary: Modifier les infos de l'utilisateur connecté
  *     description: Permet de modifier l'email, le nom, ou le mot de passe (avec mot de passe actuel).
  *     security:
@@ -95,7 +95,7 @@ router.patch("/user", authMiddleware, validate(updateUserSchema), userController
  * /user:
  *   delete:
  *     tags:
- *       - User
+ *       - Compte utilisateur
  *     summary: Supprime le compte de l'utilisateur connecté
  *     description: Cette route permet à l'utilisateur actuellement connecté de supprimer son propre compte. Requiert un token d'authentification.
  *     security:

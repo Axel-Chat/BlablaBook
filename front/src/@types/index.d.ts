@@ -16,6 +16,7 @@ export interface IBook {
   authors: IAuthor[];
   users_has_read: IUsers;
   users_need_to_read: IUsers;
+  averageRating: number | string | null;
 }
 
 export type IBooks = IBook[];

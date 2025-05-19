@@ -3,10 +3,7 @@ import { adminController } from "../controller/adminController.js";
 import { validate } from "../middlewares/validateWrapper.js";
 import { categorySchema } from "../middlewares/schemaValidate/categoryValidateSchema.js";
 import { authorValidate } from "../middlewares/schemaValidate/authorValidateSchema.js";
-import {
-  createBookSchema,
-  updateBookSchema,
-} from "../middlewares/schemaValidate/bookValidateSchema.js";
+import { createBookSchema, updateBookSchema } from "../middlewares/schemaValidate/bookValidateSchema.js";
 import { isAdminMiddleware } from "../middlewares/isAdminMiddleware.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 
@@ -17,8 +14,9 @@ export const router = Router();
  * /admin/add/books:
  *   post:
  *     summary: Ajouter un nouveau livre
- *     description: Crée un nouveau livre dans la base de données s'il n'existe pas déjà (vérification via ISBN).
- *      security:
+ *     description: >
+ *       Crée un nouveau livre dans la base de données s'il n'existe pas déjà (vérification via ISBN).
+ *     security:
  *       - bearerAuth: []
  *     tags:
  *       - Admin
@@ -42,20 +40,16 @@ export const router = Router();
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post(
-  "/admin/add/books",
-  authMiddleware,
-  isAdminMiddleware,
-  validate(createBookSchema),
-  adminController.addNewBook
-);
+
+router.post("/admin/add/books", authMiddleware, isAdminMiddleware, validate(createBookSchema), adminController.addNewBook);
 
 /**
  * @openapi
  * /admin/update/books/:bookId:
  *   patch:
  *     summary: Met à jour les informations d’un livre existant
- *     description: Met à jour un livre par ID. Seules les propriétés spécifiées dans la requête seront modifiées.
+ *     description: >
+ *       Met à jour un livre par ID. Seules les propriétés spécifiées dans la requête seront modifiées.
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -87,20 +81,15 @@ router.post(
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.patch(
-  "/admin/update/books/:bookId",
-  authMiddleware,
-  isAdminMiddleware,
-  validate(updateBookSchema),
-  adminController.updateBook
-);
+router.patch("/admin/update/books/:bookId", authMiddleware, isAdminMiddleware, validate(updateBookSchema), adminController.updateBook);
 
 /**
  * @openapi
  * /admin/delete/books/{bookId}:
  *   delete:
  *     summary: Supprime un livre
- *     description: Supprime un livre existant dans la base de données selon son ID.
+ *     description: >
+ *      Supprime un livre existant dans la base de données selon son ID.
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -123,19 +112,15 @@ router.patch(
  *               $ref: '#/components/schemas/Error'
  */
 
-router.delete(
-  "/admin/delete/books/:bookId",
-  authMiddleware,
-  isAdminMiddleware,
-  adminController.deleteBook
-);
+router.delete("/admin/delete/books/:bookId", authMiddleware, isAdminMiddleware, adminController.deleteBook);
 
 /**
  * @openapi
  * /admin/add/categories:
  *   post:
  *     summary: Ajouter une nouvelle catégorie
- *     description: Crée une catégorie si elle n'existe pas encore (vérification par nom).
+ *     description: >
+ *      Crée une catégorie si elle n'existe pas encore (vérification par nom).
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -161,20 +146,15 @@ router.delete(
  *               $ref: '#/components/schemas/Error'
  */
 
-router.post(
-  "/admin/add/categories",
-  authMiddleware,
-  isAdminMiddleware,
-  validate(categorySchema),
-  adminController.addCategory
-);
+router.post("/admin/add/categories", authMiddleware, isAdminMiddleware, validate(categorySchema), adminController.addCategory);
 
 /**
  * @openapi
  * /admin/update/categories/{categoryId}:
  *   patch:
  *     summary: Met à jour une catégorie existante
- *     description: Met à jour le nom d'une catégorie à partir de son ID.
+ *     description: >
+ *      Met à jour le nom d'une catégorie à partir de son ID.
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -207,20 +187,15 @@ router.post(
  *               $ref: '#/components/schemas/Error'
  */
 
-router.patch(
-  "/admin/update/categories/:categoryId",
-  authMiddleware,
-  isAdminMiddleware,
-  validate(categorySchema),
-  adminController.updateCategory
-);
+router.patch("/admin/update/categories/:categoryId", authMiddleware, isAdminMiddleware, validate(categorySchema), adminController.updateCategory);
 
 /**
  * @openapi
  * /admin/delete/categories/{categoryId}:
  *   delete:
  *     summary: Supprimer une catégorie
- *     description: Supprime une catégorie existante à partir de son ID.
+ *     description: >
+ *      Supprime une catégorie existante à partir de son ID.
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -243,19 +218,15 @@ router.patch(
  *               $ref: '#/components/schemas/Error'
  */
 
-router.delete(
-  "/admin/delete/categories/:categoryId",
-  authMiddleware,
-  isAdminMiddleware,
-  adminController.deleteCategory
-);
+router.delete("/admin/delete/categories/:categoryId", authMiddleware, isAdminMiddleware, adminController.deleteCategory);
 
 /**
  * @openapi
  * /admin/add/authors:
  *   post:
  *     summary: Ajouter un nouvel auteur
- *     description: Crée un nouvel auteur si le nom n'existe pas déjà (insensible à la casse).
+ *     description: >
+ *      Crée un nouvel auteur si le nom n'existe pas déjà (insensible à la casse).
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -280,20 +251,15 @@ router.delete(
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post(
-  "/admin/add/authors",
-  authMiddleware,
-  isAdminMiddleware,
-  validate(authorValidate),
-  adminController.addAuthor
-);
+router.post("/admin/add/authors", authMiddleware, isAdminMiddleware, validate(authorValidate), adminController.addAuthor);
 
 /**
  * @openapi
  * /admin/update/authors/{authorId}:
  *   patch:
  *     summary: Met à jour le nom d’un auteur existant
- *     description: Modifie le nom d’un auteur identifié par son ID.
+ *     description: >
+ *      Modifie le nom d’un auteur identifié par son ID.
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -325,20 +291,15 @@ router.post(
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.patch(
-  "/admin/update/authors/:authorId",
-  authMiddleware,
-  isAdminMiddleware,
-  validate(authorValidate),
-  adminController.updateAuthor
-);
+router.patch("/admin/update/authors/:authorId", authMiddleware, isAdminMiddleware, validate(authorValidate), adminController.updateAuthor);
 
 /**
  * @openapi
  * /admin/delete/authors/{authorId}:
  *   delete:
  *     summary: Supprime un auteur par ID
- *     description: Supprime un auteur existant identifié par son ID.
+ *     description: >
+ *      Supprime un auteur existant identifié par son ID.
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -360,9 +321,4 @@ router.patch(
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.delete(
-  "/admin/delete/authors/:authorId",
-  authMiddleware,
-  isAdminMiddleware,
-  adminController.deleteAuthor
-);
+router.delete("/admin/delete/authors/:authorId", authMiddleware, isAdminMiddleware, adminController.deleteAuthor);

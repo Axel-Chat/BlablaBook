@@ -9,6 +9,40 @@
  *       bearerFormat: JWT
  */
 
+// Error
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     UnauthorizedError:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Non autorisé !
+ *
+ *     UserNotFound:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Utilisateur non trouvé
+ *
+ *     BookNotFound:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Ce livre n'existe pas
+ *
+ *     Error:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Erreur générique
+ */
+
 // Register
 /**
  * @openapi
@@ -188,13 +222,6 @@
  *         page_count:
  *           type: integer
  *           example: 350
- *
- *     Error:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: Impossible d'ajouter ce livre car il existe déjà
  */
 
 // admin/update/books/:bookId
@@ -249,12 +276,6 @@
  *         name:
  *           type: string
  *           example: Science-fiction
- *     Error:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: Impossible d'ajouter cette catégorie car elle existe déjà
  */
 
 // /admin/update/categories/:categoryId
@@ -277,12 +298,6 @@
  *         name:
  *           type: string
  *           example: Fantastique
- *     Error:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: La mise à jour est impossible
  */
 
 // /admin/add/authors
@@ -298,12 +313,6 @@
  *         name:
  *           type: string
  *           example: Victor Hugo
- *     Error:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: Impossible d'ajouter cet auteur car il existe déjà
  */
 
 // /admin/update/authors/:authorId
@@ -319,14 +328,7 @@
  *         name:
  *           type: string
  *           example: Victor Hugo
- *     Error:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: Cet auteur n'existe pas
  */
-
 
 // Books
 /**
@@ -406,39 +408,6 @@
  *         name:
  *           type: string
  *           example: Alice Dupont
- *
- *     Book:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           example: 1
- *         title:
- *           type: string
- *           example: Harry Potter à l'école des sorciers
- *         authors:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/Author'
- *         categories:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/Category'
- *         users_has_read:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/User'
- *         users_need_to_read:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/User'
- *
- *     BookNotFound:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: Ce livre n'existe pas
  */
 
 // User
@@ -477,20 +446,6 @@
  *           type: array
  *           items:
  *             $ref: '#/components/schemas/BookShort'
-
- *     UnauthorizedError:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: Non autorisé !
-
- *     UserNotFound:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           example: Utilisateur non trouvé
  */
 
 /**
@@ -559,3 +514,184 @@
 */
 
 // User Library
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     UserLibrary:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 42
+ *         name:
+ *           type: string
+ *           example: Alice Martin
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: alice@example.com
+ *         books_already_read:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/BookShort'
+ *         books_wish_read:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/BookShort'
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     AddToReadListSuccess:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Livre ajouté à la liste des livres lus
+ */
+
+// /user/books/to-read/:bookId
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     AddToWishReadSuccess:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Livre ajouté à la liste des livres à lire
+ */
+
+// Review
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Review:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 123
+ *         rating:
+ *           type: integer
+ *           example: 5
+ *         title:
+ *           type: string
+ *           example: Superbe lecture
+ *         comment:
+ *           type: string
+ *           example: Une fin magistrale !
+ *         user_id:
+ *           type: integer
+ *           example: 1
+ *         book_id:
+ *           type: integer
+ *           example: 42
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     ReviewResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Avis ajouté ou mis à jour avec succès
+ *         review:
+ *           $ref: '#/components/schemas/Review'
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     ReviewUser:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 42
+ *         name:
+ *           type: string
+ *           example: Alice Dupont
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     BookRating:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         rating:
+ *           type: integer
+ *           example: 4
+ *         user:
+ *           $ref: '#/components/schemas/ReviewUser'
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     BookComment:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 15
+ *         title:
+ *           type: string
+ *           example: Excellent mais trop court
+ *         comment:
+ *           type: string
+ *           example: Très bon livre mais j'aurais aimé une suite
+ *         user:
+ *           $ref: '#/components/schemas/ReviewUser'
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     BookReviewsResponse:
+ *       type: object
+ *       properties:
+ *         book_id:
+ *           type: integer
+ *           example: 1
+ *         rating:
+ *           $ref: '#/components/schemas/BookRating'
+ *         comments:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/BookComment'
+ */

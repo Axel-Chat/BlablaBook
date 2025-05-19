@@ -8,7 +8,7 @@ const joiPassword = Joi.extend(joiPasswordExtendCore);
  * Joi schema for validating user registration data.
  */
 const registerSchema = Joi.object({
-  name: Joi.string().min(3).max(50).required().messages({
+  name: Joi.string().trim().min(3).max(50).required().messages({
     "string.base": "Le nom doit être une chaîne de caractères",
     "string.min": "Le nom doit contenir au moins 3 caractères",
     "string.max": "Le nom doit contenir au plus 50 caractères",

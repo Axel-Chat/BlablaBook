@@ -8,7 +8,7 @@ export const router = Router();
  * /books:
  *   get:
  *     tags:
- *       - Books
+ *       - Livres
  *     summary: Retourne la liste des livres ou des catégories
  *     description: Peut filtrer les livres par nom, auteur, catégorie, ou renvoyer uniquement les catégories.
  *     parameters:
@@ -48,7 +48,7 @@ router.get("/books", bookController.getAllBooks);
  * /books/{bookId}:
  *   get:
  *     tags:
- *       - Books
+ *       - Livres
  *     summary: Récupère un livre par son ID
  *     parameters:
  *       - in: path

@@ -33,6 +33,9 @@ export const authFetch = async (
   // If the response status is 401 (Unauthorized), log the user out
   if (response.status === 401) {
     logout(); // 🔐 Automatic logout if the token is expired or invalid
+    const error = new Error("unauthorized");
+    (error as any).status = 401;
+    throw error;
   }
 
   return response;

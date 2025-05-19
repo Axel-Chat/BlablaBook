@@ -42,7 +42,8 @@ const BookGrid = ({ title, fetchBooks, currentBookId }: BookGridProps) => {
               <div className="book cursor-pointer hover:shadow-lg hover:rounded-md hover:transition-shadow">
                 <img
                   src={`https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/${book.cover_url}.jpg`}
-                  alt={book.title}
+                  alt=""
+                  role="presentation"
                   className="h-80 w-full object-contain mb-2 mx-auto"
                   width={160}
                   height={320}

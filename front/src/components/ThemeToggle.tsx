@@ -6,7 +6,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="rounded-lg cursor-pointer text-xl transition text-black dark:text-placeholder dark:hover:text-yellow-500"
+      className="rounded-lg cursor-pointer text-xl transition text-black dark:text-placeholder dark:hover:text-yellow-500" aria-label="Bouton pour passer en mode sombre/clair"
     >
       <i
         className={`fa-solid transition-transform duration-300 ${

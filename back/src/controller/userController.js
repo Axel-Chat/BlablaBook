@@ -82,12 +82,7 @@ const userController = {
 
         // check if email is disposable
         if (isDisposableEmail(email)) {
-          return next(
-            new ApiError(
-              "Les adresses e-mail temporaires ne sont pas acceptées",
-              400
-            )
-          );
+          return next(new ApiError("Les adresses e-mail temporaires ne sont pas acceptées", 400));
         }
 
         // check if domain is valid
@@ -109,12 +104,7 @@ const userController = {
       if (password) {
         // current password is required to change it
         if (!currentPassword) {
-          return next(
-            new ApiError(
-              "Le mot de passe actuel est requis pour le modifier",
-              400
-            )
-          );
+          return next(new ApiError("Le mot de passe actuel est requis pour le modifier", 400));
         }
 
         // compare current password
