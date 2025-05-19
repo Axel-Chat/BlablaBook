@@ -118,13 +118,16 @@ export async function getTopRatedBooks(): Promise<IBook[]> {
     const response = await fetch(url);
 
     if (!response.ok) {
+      console.error(`Erreur HTTP: ${response.status} ${response.statusText}`);
       throw new Error(`Erreur lors de la récupération des livres: ${response.statusText}`);
     }
     const topBooks = (await response.json()) as IBook[];
     return topBooks;
   } catch (error) {
     console.error("Erreur lors de la récupération des livres:", error);
-    throw error;
+    throw new Error(
+      `Erreur lors de la récupération des livres: ${error instanceof Error ? error.message : "Une erreur est survenue"}`
+    );
   }
 }
 

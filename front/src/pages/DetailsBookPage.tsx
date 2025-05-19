@@ -14,6 +14,7 @@ import { useAuthStore } from "../utils/store/useAuthStore";
 import BookGrid from "../components/BookGrid";
 import Seo from "../components/Seo";
 import ReviewSection from "../components/review";
+import { Link } from "react-router-dom";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -191,10 +192,18 @@ const DetailsBookPage = () => {
 
         <div className="text-sm md:text-base max-w-xl">
           <p>
-            <span className="font-bold font-title text:2xl">Par :</span>{" "}
-            {/* Join author names if there are multiple */}
-            {book.authors.map((auth) => auth.name).join(", ")}
-          </p>
+  <span className="font-bold font-title text:2xl">Par :</span>{" "}
+  {book.authors.map((auth, index) => (
+    <Link
+      key={auth.id}
+      to={`/search?query=${encodeURIComponent(auth.name)}`}
+      className="text-blue-600 hover:underline"
+    >
+      {auth.name}
+      {index < book.authors.length - 1 ? ", " : ""}
+    </Link>
+  ))}
+</p>
 
           <h1 className="text-xl font-title font-bold mb-2">{book.title}</h1>
 
@@ -205,8 +214,12 @@ const DetailsBookPage = () => {
           </p>
 
           <p className="mb-2">
-            <span className="font-bold font-title">Date de publication</span> :{" "}
-            {book.published}
+          <span className="font-bold font-title">Date de publication</span> : <Link
+    to={`/search?query=${book.published}`}
+    className="text-blue-600 hover:underline"
+  >
+    {book.published}
+  </Link>
           </p>
 
           <p className="font-bold mt-4 mb-1 font-title text-lg">

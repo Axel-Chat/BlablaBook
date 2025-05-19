@@ -2,17 +2,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IBooks } from "../@types";
 import { useErrorHandler } from "../utils/useErrorHandler";
-
+import StarRatingStatic from "./review/StarRating";
 type BookGridProps = {
   title: string;
   fetchBooks: () => Promise<IBooks>;
   currentBookId?: number;
 };
-
 const BookGrid = ({ title, fetchBooks, currentBookId }: BookGridProps) => {
   const [bookList, setBookList] = useState<IBooks>([]);
   const { handleError } = useErrorHandler();
-
   useEffect(() => {
     async function loadBooks() {
       try {
@@ -32,6 +30,12 @@ const BookGrid = ({ title, fetchBooks, currentBookId }: BookGridProps) => {
       <h2 className="text-3xl mb-4 font-bold font-title">{title}</h2>
       <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
         {bookList.map((book) => {
+          // Safety check to avoid errors with averageRating
+          const rating =
+            book.averageRating !== undefined && book.averageRating !== null
+              ? parseFloat(String(book.averageRating))
+              : null;
+
           return (
             <Link
               key={book.id}
@@ -51,6 +55,13 @@ const BookGrid = ({ title, fetchBooks, currentBookId }: BookGridProps) => {
                 />
                 <p className="text-center text-lg font-body [word-spacing:2px] tracking-wider ">{book.title}</p>
               </div>
+              <div className="mt-2 min-h-[28px] flex justify-center">
+                {rating !== null ? (
+                  <StarRatingStatic rating={rating} showValue />
+                ) : (
+                  <p className="text-sm text-gray-500 italic">Pas encore noté</p>
+                )}
+              </div>
             </Link>
           );
         })}
@@ -58,5 +69,4 @@ const BookGrid = ({ title, fetchBooks, currentBookId }: BookGridProps) => {
     </section>
   );
 };
-
 export default BookGrid;

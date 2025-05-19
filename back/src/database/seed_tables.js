@@ -1,4 +1,4 @@
-import { sequelize, Author, Book, Category, User } from "../models/associations.js";
+import { sequelize, Author, Book, Category } from "../models/associations.js";
 
 async function seedDatabase() {
   try {
