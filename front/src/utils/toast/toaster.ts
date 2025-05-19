@@ -47,42 +47,42 @@ export const toastWarning = (message: string) => {
  * @param {string} message - The message to display..
  * @param {() => void} onConfirm - Function called if the user confirms.
  */
-// export const toastConfirm = (message: string, onConfirm: () => void) => {
-//   iziToast.question({
-//     timeout: false,
-//     close: false,
-//     overlay: true,
-//     displayMode: 1, // ✅ TypeScript attend un number (1 = "once")
-//     position: "center",
-//     message,
-//     buttons: [
-//       [
-//         "<button><strong>Oui</strong></button>",
-//         (
-//           instance,
-//           toast,
-//           button,
-//           event,
-//           inputs
-//         ) => {
-//           iziToast.hide({}, toast, "button");
-//           onConfirm();
-//         },
-//         true, // ✅ ferme le toast automatiquement après clic
-//       ],
-//       [
-//         "<button>Annuler</button>",
-//         (
-//           instance,
-//           toast,
-//           button,
-//           event,
-//           inputs
-//         ) => {
-//           iziToast.hide({}, toast, "button");
-//         },
-//         false,
-//       ],
-//     ],
-//   });
-// };
+export const toastConfirm = (message: string, onConfirm: () => void) => {
+  iziToast.question({
+    timeout: false,
+    close: false,
+    overlay: true,
+    displayMode: 1, // ✅ TypeScript attend un number (1 = "once")
+    position: "center",
+    message,
+    buttons: [
+      [
+        "<button><strong>Oui</strong></button>",
+        (
+          _instance,
+          toast,
+          _button,
+          _event,
+          _inputs
+        ) => {
+          iziToast.hide({}, toast, "button");
+          onConfirm();
+        },
+        true, // ✅ ferme le toast automatiquement après clic
+      ],
+      [
+        "<button>Annuler</button>",
+        (
+          _instance,
+          toast,
+          _button,
+          _event,
+          _inputs
+        ) => {
+          iziToast.hide({}, toast, "button");
+        },
+        false,
+      ],
+    ],
+  });
+};
