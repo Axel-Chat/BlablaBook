@@ -1,4 +1,20 @@
 import { Book, User, Review } from "../models/associations.js";
+import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // nécessaire avec Render
+    },
+  },
+});
+
+// puis tu continues avec tes modèles et tes insertions
 
 const addSelectedReviews = async () => {
   try {
