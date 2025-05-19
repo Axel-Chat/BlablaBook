@@ -7,6 +7,7 @@ const sequelize = new Sequelize(process.env.PG_URL, {
     timestamps: true,
   },
   logging: false,
+
 });
 
 export default sequelize;

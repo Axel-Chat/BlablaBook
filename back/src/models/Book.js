@@ -40,6 +40,7 @@ Book.init(
       allowNull: true,
     },
   },
+  
   {
     sequelize,
     tableName: "book",
