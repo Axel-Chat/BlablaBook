@@ -9,6 +9,7 @@
     "dev": "node --watch index.js",
     "create:admin": "node src/database/create_admin.js",
     "create:users": "node src/database/create_users.js",
+    "create:ratings": "node src/database/create_ratings.js",
     "db:create": "node src/database/create_tables.js",
     "db:seed": "node src/database/seed_tables.js",
     "db:reset": "npm run db:create  && npm run db:seed"

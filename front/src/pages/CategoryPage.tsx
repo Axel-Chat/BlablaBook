@@ -4,6 +4,7 @@ import { IBook } from "../@types";
 import { useErrorHandler } from "../utils/useErrorHandler";
 import { getBooksByCategory } from "../api/apiBooks";
 import Seo from "../components/Seo";
+import StarRatingStatic from "../components/review/StarRating";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -27,7 +28,7 @@ export default function CategoryPage() {
 
   return (
     <>
-       <Seo
+      <Seo
         title="Catégories"
         description="Découvrez nos livres par catégories"
         url={`${baseUrl}/categories/${categoryId}`}
@@ -57,6 +58,13 @@ export default function CategoryPage() {
                           className="h-80 w-100 object-contain mb-2 mx-auto"
                         />
                         <p className="font-body tracking-wider [word-spacing:2px] text-lg">{book.title}</p>
+                      </div>
+                      <div className="mt-2 min-h-[28px] flex justify-center">
+                        {book.averageRating !== null ? (
+                          <StarRatingStatic rating={Number(book.averageRating)} showValue />
+                        ) : (
+                          <p className="text-sm text-gray-500 italic">Pas encore noté</p>
+                        )}
                       </div>
                     </Link>
                   ))}
