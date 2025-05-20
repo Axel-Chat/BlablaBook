@@ -1,8 +1,8 @@
 interface IRatingBarProps {
-  stars: number;           // The number of stars (1 to 5)
-  percentage: number;      // Fill percentage (0 to 100)
-  count: number;           // Number of reviews for this rating
-};
+  stars: number; // The number of stars (1 to 5)
+  percentage: number; // Fill percentage (0 to 100)
+  count: number; // Number of reviews for this rating
+}
 
 /**
  * RatingBar component that displays a rating distribution bar.
@@ -29,10 +29,7 @@ const RatingBar = ({ stars, percentage, count }: IRatingBarProps) => {
 
       {/* Progress bar */}
       <div className="h-2 w-full min-w-[150px] rounded-full bg-gray-200 mx-4">
-        <div
-          className="h-full bg-placeholder rounded-full dark:bg-yellow-700"
-          style={{ width: `${percentage}%` }}
-        />
+        <div className="h-full bg-placeholder rounded-full dark:bg-yellow-700" style={{ width: `${percentage}%` }} />
       </div>
 
       {/* Number of reviews */}

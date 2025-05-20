@@ -46,7 +46,7 @@ const ReviewSection = () => {
   }, [bookId]);
 
   /**
-   * 
+   *
    */
   const handleDeleteReview = () => {
     toastConfirm("Voulez-vous vraiment supprimer votre avis ?", async () => {
@@ -56,9 +56,7 @@ const ReviewSection = () => {
         fetchData();
       } catch (err: unknown) {
         if (err instanceof Error) {
-          toastWarning(
-            err.message || "Une erreur est survenue lors de la suppression."
-          );
+          toastWarning(err.message || "Une erreur est survenue lors de la suppression.");
         } else {
           toastWarning("Impossible de supprimer l'avis.");
         }
@@ -67,33 +65,24 @@ const ReviewSection = () => {
   };
 
   return (
-    <section className="py-24 relative font-body">
+    <section className="py-12 relative font-body">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="font-title text-4xl text-center mb-12 text-black dark:text-blue-100">
-          Les notes et avis
-        </h2>
+        <h2 className="font-title text-4xl text-center mb-12 text-black dark:text-blue-100">Les notes et avis</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 px-4 ml:grid-cols-3">
           <div>
-            {loading && !reviewData ? (
-              <p className="text-gray-400">Chargement de la répartition...</p>
-            ) : (
-              <Ratings reviews={reviewData?.reviews ?? []} />
-            )}
+            {loading && !reviewData ? <p className="text-gray-400">Chargement de la répartition...</p> : <Ratings reviews={reviewData?.reviews ?? []} />}
           </div>
 
           <div className="flex items-center justify-center">
             {loading && !reviewData ? (
               <p className="text-gray-400">Chargement de la moyenne...</p>
             ) : (
-              <AverageRating
-                value={calculateAverageRating(reviewData?.reviews ?? [])}
-                subtitle={`${reviewData?.reviews.length ?? 0} avis`}
-              />
+              <AverageRating value={calculateAverageRating(reviewData?.reviews ?? [])} subtitle={`${reviewData?.reviews.length ?? 0} avis`} />
             )}
           </div>
 
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center h-full">
             <OpenModal onWriteClick={() => setIsModalOpen(true)} />
           </div>
         </div>
@@ -127,8 +116,7 @@ const ReviewSection = () => {
             />
           ) : (
             <p className="text-center text-gray-500 mt-10 dark:text-placeholder" aria-live="polite">
-              Aucun avis n’a encore été posté pour ce livre. Soyez le premier à
-              laisser le vôtre !
+              Aucun avis n’a encore été posté pour ce livre. Soyez le premier à laisser le vôtre !
             </p>
           )}
         </div>
