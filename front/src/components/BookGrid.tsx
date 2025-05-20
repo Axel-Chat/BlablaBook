@@ -55,14 +55,16 @@ const BookGrid = ({ title, fetchBooks, currentBookId }: BookGridProps) => {
           1350: { slidesPerView: 4, spaceBetween: 200 },
           1550: { slidesPerView: 5 },
         }}
-        style={{
-          "--swiper-pagination-color": "#FFBA08",
-          "--swiper-pagination-bullet-inactive-color": "#999999",
-          "--swiper-pagination-bullet-inactive-opacity": "1",
-          "--swiper-pagination-bullet-size": "12px",
-          "--swiper-pagination-bullet-horizontal-gap": "8px",
-          "--swiper-button-next-backgroundSize": "40px",
-        }}
+        style={
+          {
+            "--swiper-pagination-color": "#FFBA08",
+            "--swiper-pagination-bullet-inactive-color": "#999999",
+            "--swiper-pagination-bullet-inactive-opacity": "1",
+            "--swiper-pagination-bullet-size": "12px",
+            "--swiper-pagination-bullet-horizontal-gap": "8px",
+            "--swiper-button-next-backgroundSize": "40px",
+          } as React.CSSProperties
+        }
         className="!pb-10" // Ajoute de l'espace sous le slider pour les flèches/pagination
       >
         {bookList.map((book) => {
