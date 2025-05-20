@@ -52,7 +52,7 @@ export const toastConfirm = (message: string, onConfirm: () => void) => {
     timeout: false,
     close: false,
     overlay: true,
-    displayMode: 1, // ✅ TypeScript attend un number (1 = "once")
+    displayMode: 1,
     position: "center",
     message,
     buttons: [
@@ -68,7 +68,7 @@ export const toastConfirm = (message: string, onConfirm: () => void) => {
           iziToast.hide({}, toast, "button");
           onConfirm();
         },
-        true, // ✅ ferme le toast automatiquement après clic
+        true
       ],
       [
         "<button>Annuler</button>",

@@ -54,8 +54,7 @@ const bookController = {
         const booksWithRatings = books.map((book) => {
           const reviews = book.reviews || [];
           const ratings = reviews.map((review) => review.rating).filter((rating) => rating !== null);
-          const averageRating =
-            ratings.length > 0 ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length : null;
+          const averageRating = ratings.length > 0 ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length : null;
 
           // Renvoyer une version plainObject du livre avec la note moyenne
           return {
@@ -68,7 +67,7 @@ const bookController = {
         const topBooks = booksWithRatings
           .filter((book) => book.averageRating !== null)
           .sort((a, b) => b.averageRating - a.averageRating)
-          .slice(0, 5);
+          .slice(0, 10);
 
         return res.status(200).json(topBooks);
       } catch (error) {
@@ -82,7 +81,7 @@ const bookController = {
       try {
         const randomBooks = await Book.findAll({
           order: [Sequelize.literal("RANDOM()")],
-          limit: 5,
+          limit: 10,
           include: includeOptions,
         });
 
@@ -90,8 +89,7 @@ const bookController = {
         const randomBooksWithRatings = randomBooks.map((book) => {
           const reviews = book.reviews || [];
           const ratings = reviews.map((review) => review.rating).filter((rating) => rating !== null);
-          const averageRating =
-            ratings.length > 0 ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length : null;
+          const averageRating = ratings.length > 0 ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length : null;
 
           return {
             ...book.get({ plain: true }),
@@ -112,7 +110,7 @@ const bookController = {
         { title: { [Op.iLike]: `%${search}%` } }, // case insensitive on the book title
         { "$authors.name$": { [Op.iLike]: `%${search}%` } }, // case insensitive on the author name
       ];
-      const year = Number(search);//for the year
+      const year = Number(search); //for the year
       if (!isNaN(year)) {
         whereConditions[Op.or].push({ published: year });
       }
@@ -156,6 +154,8 @@ const bookController = {
           include: [[fn("AVG", col("reviews.rating")), "averageRating"]],
         },
         group: ["Book.id", "categories.id", "authors.id"],
+
+        order: [[Sequelize.literal('"categories"."id"'), "ASC"]],
       });
       res.status(200).json(result);
     } catch (error) {
@@ -176,12 +176,7 @@ const bookController = {
     const id = parseInt(req.params.bookId);
 
     const result = await Book.findByPk(id, {
-      include: [
-        { association: "categories" },
-        { association: "authors" },
-        { association: "users_has_read" },
-        { association: "users_need_to_read" },
-      ],
+      include: [{ association: "categories" }, { association: "authors" }, { association: "users_has_read" }, { association: "users_need_to_read" }],
     });
 
     // checking if result exist, if it's not, go to the middleware errorHandler

@@ -28,11 +28,7 @@ export default function CategoryPage() {
 
   return (
     <>
-      <Seo
-        title="Catégories"
-        description="Découvrez nos livres par catégories"
-        url={`${baseUrl}/categories/${categoryId}`}
-      />
+      <Seo title="Catégories" description="Découvrez nos livres par catégories" url={`${baseUrl}/categories/${categoryId}`} />
       <div className="bg-body font-sans pt-8">
         {/* Contenu principal avec marge à gauche */}
 
@@ -40,12 +36,9 @@ export default function CategoryPage() {
         <section className="content">
           <div>
             <div className="bg-nav-footer-50 font-sans">
-              {/* Contenu principal avec marge à gauche */}{" "}
-              {/* Ajoute une marge à gauche sur les écrans md et plus grands */}
+              {/* Contenu principal avec marge à gauche */} {/* Ajoute une marge à gauche sur les écrans md et plus grands */}
               <section className="content ml-[5vw] mr-[5vw] pb-20 ">
-                <h2 className="text-2xl mb-4 font-title font-bold">
-                  Tous Nos Livres du genre : {booksCategories[0]?.categories?.[0]?.name}
-                </h2>
+                <h2 className="text-2xl mb-4 font-title font-bold">Tous Nos Livres du genre : {booksCategories[0]?.categories?.[0]?.name}</h2>
                 <div className="book-list grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
                   {/* loop on books */}
                   {booksCategories.map((book) => (

@@ -37,19 +37,11 @@ const UserToReadPage = () => {
   if (!localUser) return null;
 
   return (
-    <section className="content ml-[5vw] mr-[5vw] pt-10 pb-20">
-      <UserBookGrid
-        title={`Mes livres à lire : ${localUser.books_wish_read.length}`}
-        books={localUser.books_wish_read}
-      />
-      <div className="mt-10">
-        <Link
-          to="/profile"
-          className="block text-gray-800 hover:text-yellow-700 hover:underline mb-2 font-body tracking-widest"
-        >
-          ← Retour au profil
-        </Link>
-      </div>
+    <section className="content pt-10 pb-20">
+      <Link to="/profile" className="block text-gray-800 hover:text-yellow-700 hover:underline mb-2 font-body tracking-widest px-4 sm:px-10">
+        ← Retour au profil
+      </Link>
+      <UserBookGrid title={`Mes livres à lire : ${localUser.books_wish_read.length}`} books={localUser.books_wish_read} />
     </section>
   );
 };

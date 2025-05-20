@@ -6,7 +6,7 @@ export class Review extends Model {}
 Review.init(
   {
     rating: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.REAL,
       allowNull: true,
       validate: {
         min: 0,
